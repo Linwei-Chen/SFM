@@ -48,15 +48,14 @@ git clone https://github.com/your-username/SFM.git
 cd SFM
 
 # Create a conda virtual environment (recommended)
-conda create -n sfm python=3.8 -y
+conda create -n sfm python=3.7 -y
 conda activate sfm
 
-# Install PyTorch
-# Please refer to the official PyTorch website for the command matching your system
-pip install torch==1.10.1+cu111 torchvision==0.11.2+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+# install torch
+pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 -f https://download.pytorch.org/whl/torch_stable.html
 
-# Install mmcv-full
-pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu111/torch1.10.0/index.html
+# install mmcv
+pip install mmcv-full==1.5.3 -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.11/index.html
 
 # Install other dependencies
 pip install -r requirements.txt
@@ -106,7 +105,7 @@ Generated bibtex
   title={Spatial Frequency Modulation for Semantic Segmentation},
   author={Chen, Linwei and Fu, Ying and Gu, Lin and Zheng, Dezhi and Dai, Jifeng},
   journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
-  year={2023},
+  year={2025},
   publisher={IEEE}
 }
     
