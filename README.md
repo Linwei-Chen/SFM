@@ -1,6 +1,6 @@
-# Spatial Frequency Modulation for Semantic Segmentation
+# TPAMI 2025 Spatial Frequency Modulation for Semantic Segmentation
 
-This repository contains implementation for the paper: **Spatial Frequency Modulation for Semantic Segmentation** (Accepted by IEEE Transactions on Pattern Analysis and Machine Intelligence, 2025).
+This repository contains implementation for the paper: **Spatial Frequency Modulation for Semantic Segmentation** (Accepted by IEEE Transactions on Pattern Analysis and Machine Intelligence, TPAMI 2025).
 
 ![image-20250715191310237](README.assets/image-20250715191310237.png)
 
@@ -26,73 +26,11 @@ Our lightweight and plug-and-play modules, **Adaptive Resampling (ARS)** and **M
   - **Multi-Scale Adaptive Upsampling (MSAU):** A module that performs non-uniform upsampling to reverse the modulation and refines segmentation details by modeling multi-scale pixel relationships.
 - **Broad Applicability:** Our method is model-agnostic and consistently improves various state-of-the-art segmentation models, including CNN-based (ResNet, ConvNeXt, InternImage) and Transformer-based (Swin) architectures, with minimal computational overhead.
 
-## Installation
-
-This project is based on [MMSegmentation](https://www.google.com/url?sa=E&q=https%3A%2F%2Fgithub.com%2Fopen-mmlab%2Fmmsegmentation). Please follow the steps below for installation.
-
-**1. Prerequisites:**
-
-- Linux or macOS
-- Python 3.7+
-- PyTorch 1.7+
-- CUDA 10.2+
-- mmcv-full
-
-**2. Set up the Environment:**
-
-Generated bash
-
-```
-      # Clone the repository
-git clone https://github.com/your-username/SFM.git
-cd SFM
-
-# Create a conda virtual environment (recommended)
-conda create -n sfm python=3.7 -y
-conda activate sfm
-
-# install torch
-pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 -f https://download.pytorch.org/whl/torch_stable.html
-
-# install mmcv
-pip install mmcv-full==1.5.3 -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.11/index.html
-
-# Install other dependencies
-pip install -r requirements.txt
-
-# Install the project in editable mode
-pip install -v -e .
-    
-```
+## Model
 
 
 
-## Getting Started
 
-### Dataset Preparation
-
-Please prepare the datasets according to the official MMSegmentation [guidelines](https://www.google.com/url?sa=E&q=https%3A%2F%2Fgithub.com%2Fopen-mmlab%2Fmmsegmentation%2Fblob%2Fmaster%2Fdocs%2Fen%2Fuser_guides%2F2_dataset_prepare.md). The expected directory structure is as follows:
-
-```
-      SFM
-├── mmseg
-├── tools
-├── configs
-└── data
-    ├── cityscapes
-    │   ├── leftImg8bit
-    │   │   ├── train
-    │   │   └── val
-    │   └── gtFine
-    │       ├── train
-    │       └── val
-    ├── ade
-    │   └── ADEChallengeData2016
-    │       ├── annotations
-    │       └── images
-    ...
-    
-```
 
 ## Citation
 
