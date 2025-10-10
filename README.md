@@ -28,7 +28,11 @@ Our lightweight and plug-and-play modules, **Adaptive Resampling (ARS)** and **M
 
 ## Model
 
-
+| Model                                                        | Dataset | mIoU                         |
+| ------------------------------------------------------------ | ------- | ---------------------------- |
+| Mask2Former ([code](./SFM_mask2former/), [config](./SFM_mask2former/configs/mask2former/mask2former_swin-t_8xb2-160k_ade20k-512x512_SFM.py), [ckpt](https://pan.baidu.com/s/1s9LlTZgA9s7kV_8xXDGZVA?pwd=PAMI)) | ADE20K  | 47.7 $\rightarrow$  **49.2** |
+|                                                              |         |                              |
+|                                                              |         |                              |
 
 
 
