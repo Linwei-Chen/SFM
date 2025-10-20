@@ -1,6 +1,8 @@
 # TPAMI 2025 Spatial Frequency Modulation for Semantic Segmentation
 
-This repository contains implementation for the paper: **Spatial Frequency Modulation for Semantic Segmentation** (Accepted by IEEE Transactions on Pattern Analysis and Machine Intelligence, TPAMI 2025).
+[TPAMI 2025] Spatial Frequency Modulation for Semantic Segmentation
+
+[Arxiv](https://arxiv.org/abs/2507.11893) [IEEE](https://ieeexplore.ieee.org/document/11095993)
 
 ![image-20250715191310237](README.assets/image-20250715191310237.png)
 
@@ -26,7 +28,7 @@ Our lightweight and plug-and-play modules, **Adaptive Resampling (ARS)** and **M
   - **Multi-Scale Adaptive Upsampling (MSAU):** A module that performs non-uniform upsampling to reverse the modulation and refines segmentation details by modeling multi-scale pixel relationships.
 - **Broad Applicability:** Our method is model-agnostic and consistently improves various state-of-the-art segmentation models, including CNN-based (ResNet, ConvNeXt, InternImage) and Transformer-based (Swin) architectures, with minimal computational overhead.
 
-## Model
+## Code & Model
 
 | Model                                                        | Dataset | mIoU                         |
 | ------------------------------------------------------------ | ------- | ---------------------------- |
