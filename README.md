@@ -50,7 +50,10 @@ Generated bibtex
   author={Chen, Linwei and Fu, Ying and Gu, Lin and Zheng, Dezhi and Dai, Jifeng},
   journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
   year={2025},
-  publisher={IEEE}
+  volume={47},
+  number={11},
+  pages={9767-9784},
+  doi={10.1109/TPAMI.2025.3592621}
 }
     
 ```
