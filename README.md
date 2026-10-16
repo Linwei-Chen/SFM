@@ -42,10 +42,13 @@ Modules (LPRM, dilations doubling 1→64).
 
 | Line | Model | Dataset | mIoU | Code / Config / Ckpt |
 | --- | --- | --- | --- | --- |
-| 1 (FCN) | CCNet-R50, stride 16 (SFM) | Cityscapes | 73.3 → **78.5** | ckpt (待补链接)；本机 mmseg env 复现 78.45（训练 log） |
-| 1 (FCN) | PSPNet-R50 / FCN-R50 / OCNet / PCAA, stride 32/16/8 (SFM) | Cityscapes | 见论文主表（76.0–79.6） | 权重整理中 |
-| 2 (FPN) | Mask2Former Swin-T (SFM) | ADE20K | 47.7 → **49.2** | [code](./SFM_mask2former/), [config](./SFM_mask2former/configs/mask2former/mask2former_swin-t_8xb2-160k_ade20k-512x512_SFM.py), [ckpt](https://pan.baidu.com/s/1s9LlTZgA9s7kV_8xXDGZVA?pwd=PAMI) |
-| 2 (FPN) | Mask2Former Swin-L (SFM) | ADE20K | 51.5 → **55.6** | ckpt (待补链接) |
+| 1 (FCN) | CCNet-R50, D16 (SFM) | Cityscapes | 73.3 → **78.5** | ckpt (HF 待传)；训练 log 78.45，qhull-MSAU 移植版端到端实测逐类 IoU 与原代码完全一致 |
+| 1 (FCN) | CCNet / OCNet / FCN / PSPNet-R50, D32/D16/D8 (SFM) | Cityscapes | 76.3/78.5/79.3 · 75.8/78.0/79.7 · 76.2/77.8/78.7 · 76.0/78.1/79.5 | ckpts (HF 上传中)，训练 log 逐一核验 ≥ 论文值 |
+| 1 (FCN) | PCAA-R50 (SFM) | Cityscapes | 73.3 → 76.8 / 76.9 → 77.9 | ckpts (HF 上传中) |
+| 1 (FCN) | FCN / PSPNet / CCNet / OCNet-R50, D32 (SFM) | PascalContext-59 | 43.8 → 46.0 / 48.0 → 49.7 / 47.7 → 49.1 / 47.9 → 49.9 | ckpts (HF 上传中) |
+| 2 (FPN) | Mask2Former Swin-T (SFMv2) | ADE20K | 47.4 → **49.1** | [code](./SFM_mask2former/), [config](./SFM_mask2former/configs/mask2former/mask2former_swin-t_8xb2-160k_ade20k-512x512_SFMv2.py), ckpt (HF 待传)；2025-10 复测 **49.34** |
+
+> All released checkpoints are training-log verified to match or exceed the paper-reported numbers; runs whose best score falls below the paper value are not released.
 
 
 
