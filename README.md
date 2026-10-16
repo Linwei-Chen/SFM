@@ -50,6 +50,8 @@ Modules (LPRM, dilations doubling 1→64).
 
 > All released checkpoints are training-log verified to match or exceed the paper-reported numbers; runs whose best score falls below the paper value are not released.
 
+Loading & evaluation code for the Line 1 checkpoints (an mmsegmentation 0.25.0 fork with the SS3PR modules, plus the 18 config snapshots): [`SFM_mmseg0x/`](./SFM_mmseg0x/).
+
 
 
 ## Quick Start: Plug-and-Play Usage (pip installable)
