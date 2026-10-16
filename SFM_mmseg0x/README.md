@@ -41,7 +41,7 @@ mkdir -p data
 # PascalContext-59：data/VOCdevkit/VOC2010（详见面板见各配置 data_root）
 ```
 
-## 模型库（checkpoint 见 HuggingFace Linwei-Chen/SFM）
+## 模型库（checkpoint 见 [HuggingFace Linwei-Chen/SFM](https://huggingface.co/Linwei-Chen/SFM/tree/main/line1)）
 
 | 配置 (`configs/`) | 模型 | 论文 mIoU | 训练日志实测 |
 | --- | --- | --- | --- |

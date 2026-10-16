@@ -40,15 +40,43 @@ Modules (LPRM, dilations doubling 1→64).
 
 **Line 2 — FPN models (e.g. Mask2Former): ARS + CARAFE-style reassembly + 3-point dynamic sampling weighted alignment.**
 
-| Line | Model | Dataset | mIoU | Code / Config / Ckpt |
-| --- | --- | --- | --- | --- |
-| 1 (FCN) | CCNet-R50, D16 (SFM) | Cityscapes | 73.3 → **78.5** | ckpt (HF 待传)；训练 log 78.45，qhull-MSAU 移植版端到端实测逐类 IoU 与原代码完全一致 |
-| 1 (FCN) | CCNet / OCNet / FCN / PSPNet-R50, D32/D16/D8 (SFM) | Cityscapes | 76.3/78.5/79.3 · 75.8/78.0/79.7 · 76.2/77.8/78.7 · 76.0/78.1/79.5 | ckpts (HF 上传中)，训练 log 逐一核验 ≥ 论文值 |
-| 1 (FCN) | PCAA-R50 (SFM) | Cityscapes | 73.3 → 76.8 / 76.9 → 77.9 | ckpts (HF 上传中) |
-| 1 (FCN) | FCN / PSPNet / CCNet / OCNet-R50, D32 (SFM) | PascalContext-59 | 43.8 → 46.0 / 48.0 → 49.7 / 47.7 → 49.1 / 47.9 → 49.9 | ckpts (HF 上传中) |
-| 2 (FPN) | Mask2Former Swin-T (SFMv2) | ADE20K | 47.4 → **49.1** | [code](./SFM_mask2former/), [config](./SFM_mask2former/configs/mask2former/mask2former_swin-t_8xb2-160k_ade20k-512x512_SFMv2.py), ckpt (HF 待传)；2025-10 复测 **49.34** |
+**Line 1 — Cityscapes** (val mIoU, ResNet-50 backbone, 40k iterations):
+
+| Model (SFM) | Paper | Training log | Checkpoint |
+| --- | --- | --- | --- |
+| CCNet-R50 D32 | 76.3 | **76.34** | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/cityscapes/ccnet_r50SS3PR-d32_cityscapes/iter_40000.pth) |
+| CCNet-R50 D16 | 78.5 | 78.45 | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/cityscapes/ccnet_r50SS3PR-d16_cityscapes/iter_40000.pth) |
+| CCNet-R50 D8 | 79.3 | **79.39** | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/cityscapes/ccnet_r50SS3PR-d8_cityscapes/iter_40000.pth) |
+| OCNet-R50 D32 | 75.8 | **75.82** | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/cityscapes/isanet_r50SS3PR-d32_cityscapes/iter_40000.pth) |
+| OCNet-R50 D16 | 78.0 | **78.00** | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/cityscapes/isanet_r50SS3PR-d16_cityscapes/iter_40000.pth) |
+| OCNet-R50 D8 | 79.7 | **79.74** | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/cityscapes/isanet_r50SS3PR-d8_cityscapes/iter_40000.pth) |
+| FCN-R50 D32 | 76.2 | **76.20** | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/cityscapes/FCN_r50SS3PR-d32_cityscapes/iter_40000.pth) |
+| FCN-R50 D16 | 77.8 | 77.78 | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/cityscapes/FCN_r50SS3PR-d16_cityscapes/iter_40000.pth) |
+| FCN-R50 D8 | 78.7 | 78.65 | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/cityscapes/FCN_r50SS3PR-d8_cityscapes/iter_40000.pth) |
+| PSPNet-R50 D32 | 76.0 | **76.18** | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/cityscapes/pspnet_r50SS3PR-d32_cityscapes/iter_40000.pth) |
+| PSPNet-R50 D16 | 78.1 | 78.05 | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/cityscapes/pspnet_r50SS3PR-d16_cityscapes/iter_40000.pth) |
+| PSPNet-R50 D8 | 79.5 | **79.52** | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/cityscapes/pspnet_r50SS3PR-d8_cityscapes/iter_40000.pth) |
+| PCAA-R50 (col. 1) | 76.8 | **76.83** | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/cityscapes/pcaa_r50SSPR-d32_cityscapes/iter_40000.pth) |
+| PCAA-R50 (col. 2) | 77.9 | 77.86 | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/cityscapes/pcaa_r50SSPR-d16_cityscapes/iter_40000.pth) |
+
+**Line 1 — PascalContext-59** (val mIoU, ResNet-50 backbone, 40k iterations):
+
+| Model (SFM) | Paper | Training log | Checkpoint |
+| --- | --- | --- | --- |
+| FCN-R50 D32 | 46.0 | **46.35** | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/pascalcontext/FCN_r50SS3PR-d32_pascalcontext/iter_40000.pth) |
+| PSPNet-R50 D32 | 49.7 | 49.68 | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/pascalcontext/pspnet_r50SS3PR-d32_pascalcontext/iter_40000.pth) |
+| CCNet-R50 D32 | 49.1 | 49.07 | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/pascalcontext/ccnet_r50SS3PR-d32_pascalcontext/iter_40000.pth) |
+| OCNet-R50 D32 | 49.9 | 49.85 | [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line1/pascalcontext/isanet_r50SS3PR-d32_pascalcontext/iter_40000.pth) |
+
+**Line 2 — ADE20K** (val mIoU, Mask2Former Swin-T, 160k iterations):
+
+| Model (SFMv2) | Paper | Re-eval (2025-10) | Code / Config / Checkpoint |
+| --- | --- | --- | --- |
+| Mask2Former Swin-T | 49.1 | **49.34** | [code](./SFM_mask2former/) · [config](./SFM_mask2former/configs/mask2former/mask2former_swin-t_8xb2-160k_ade20k-512x512_SFMv2.py) · [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line2/mask2former_swin-t_8xb2-160k_ade20k-512x512_SFMv2/best_mIoU_iter_150000.pth) |
 
 > All released checkpoints are training-log verified to match or exceed the paper-reported numbers; runs whose best score falls below the paper value are not released.
+> Paper-reported baselines for reference: CCNet-R50 73.3 and PCAA-R50 73.3/76.9 (Cityscapes), FCN 43.8 / PSPNet 48.0 / CCNet 47.7 / OCNet 47.9 (PascalContext-59), Mask2Former Swin-T 47.4 (ADE20K).
+> CCNet-R50 D16: the released qhull-MSAU port reproduces the original code's per-class IoU exactly in a full 500-image re-evaluation.
 
 Loading & evaluation code for the Line 1 checkpoints (an mmsegmentation 0.25.0 fork with the SS3PR modules, plus the 18 config snapshots): [`SFM_mmseg0x/`](./SFM_mmseg0x/).
 
