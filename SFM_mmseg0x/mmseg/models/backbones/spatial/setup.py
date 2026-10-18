@@ -13,12 +13,6 @@ import subprocess
 import os
 import sys
 
-def pre_build_hook(build_ext, ext):
-    from scipy._build_utils.compiler_helper import get_cxx_std_flag
-    std_flag = get_cxx_std_flag(build_ext._cxx_compiler)
-    if std_flag is not None:
-        ext.extra_compile_args.append(std_flag)
-
 def gen_cython():
     cwd = os.path.abspath(os.path.dirname(__file__))
     print("Cythonizing sources")
@@ -32,7 +26,7 @@ def gen_cython():
 def configuration(parent_package='', top_path=None):
     from numpy.distutils.misc_util import Configuration, get_numpy_include_dirs
     from numpy.distutils.misc_util import get_info as get_misc_info
-    from scipy._build_utils.system_info import get_info as get_sys_info
+    from numpy.distutils.system_info import get_info as get_sys_info
     from distutils.sysconfig import get_python_inc
     # from scipy.spatial import transform
 

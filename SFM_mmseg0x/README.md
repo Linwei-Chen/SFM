@@ -31,8 +31,8 @@ cd mmseg/models/backbones/spatial && python setup.py build_ext --inplace && cd -
 
 > 训练/验证环境为 py3.7.11 + torch 1.7.1+cu110 + mmcv-full 1.5.3 + numpy 1.21.6；
 > 本目录代码已在 py3.7.11 + torch 1.11.0+cu113 + numpy 1.21.6 + mmcv-full 1.5.3（Linux）
-> 上完成验证。qhull 编译用到 numpy<1.26 与 scipy<1.10 的构建 API（py3.7 默认满足）；
-> 更高版本的 Python/scipy 需自行适配 `spatial/setup.py`。
+> 上完成验证。qhull 编译基于 numpy.distutils 构建体系（需 numpy<1.26，numpy≥1.26
+> 已移除该模块），已在 py3.7 + numpy 1.21.6 + scipy 1.1.0 从零编译通过。
 
 ## 数据准备
 
@@ -89,10 +89,14 @@ PYTHONPATH=<本目录> python tools/test.py \
 单卡跑多卡训练的 checkpoint 无需额外处理（`SamplesPerGPU` 已写入配置）。
 评测指标打印在终端，并写入 `./work_dirs/<配置名>/eval_single_scale_*.json`。
 
-## 验证记录（2026-10-16）
+## 验证记录
 
 - 精简树在 py3.7.11 + torch 1.11.0+cu113 + numpy 1.21.6 + mmcv-full 1.5.3 上：
-  **18/18 配置构建成功 + 18/18 checkpoint `load_state_dict(strict=True)` 全部通过**；
-- 打包版（含数据路径中性化的 18 份配置）再次 **18/18 构建通过**；
+  **18/18 配置构建成功 + 18/18 checkpoint `load_state_dict(strict=True)` 全部通过**（2026-10-16）；
+- 打包版（含数据路径中性化的 18 份配置）再次 **18/18 构建通过**（2026-10-16）；
+- 发布前清理（移除调试 print、截断实验类、中和私有路径、修复 `spatial/setup.py` 的
+  scipy 构建依赖）之后，**从零编译 qhull + 18/18 建模 + 18/18 严格加载全部复验通过**
+  （2026-10-18）；
+- 线②发布配置与 49.34 复测版配置的 `model` 字段逐项相等（diff 证明）；
 - 端到端评测等价性此前已单独验证：CCNet-R50 D16 用真实 checkpoint 完整评测 500 张，
   qhull-MSAU 移植实现与原训练代码逐类 IoU 完全一致（见主仓库 README）。
