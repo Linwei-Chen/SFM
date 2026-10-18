@@ -150,7 +150,7 @@ def main():
             'mmsegmentation neck registries; pure PyTorch usage also supported.'),
         long_description_content_type='text/plain',
         author='Linwei Chen',
-        author_email='chenlinwei@csu.edu.cn',
+        author_email='chenlinwei@bit.edu.cn',
         url='https://github.com/Linwei-Chen/SFM',
         license='Apache License 2.0',
         packages=packages,

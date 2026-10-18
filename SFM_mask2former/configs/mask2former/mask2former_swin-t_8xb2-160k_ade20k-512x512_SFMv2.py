@@ -10,7 +10,7 @@ visualizer = dict(
     name='visualizer')
 log_processor = dict(by_epoch=False)
 log_level = 'INFO'
-load_from = None  # 从 HuggingFace 下载 mask2former_swin-t_SFMv2_ade20k 权重后，用 tools/test.py 传入
+load_from = None  # 权重：https://huggingface.co/Linwei-Chen/SFM/blob/main/line2/mask2former_swin-t_8xb2-160k_ade20k-512x512_SFMv2/best_mIoU_iter_150000.pth（用 tools/test.py <config> <ckpt> 传入）
 resume = False
 tta_model = dict(type='SegTTAModel')
 dataset_type = 'ADE20KDataset'

@@ -12,10 +12,10 @@ CHASE_DB1_LEN = 28 * 3
 TRAINING_LEN = 60
 
 """
-python /data4/chenlinwei/code/ResolutionDet/mmsegmentation1.0/tools/dataset_converters/chase_db1.py \
-/data4/chenlinwei/dataset/chase.zip \
---tmp_dir /data4/chenlinwei/dataset \
--o /data4/chenlinwei/dataset/chase
+python tools/dataset_converters/chase_db1.py \
+CHASEDB1.zip \
+--tmp_dir /tmp/chase \
+-o data/chase
 """
 def parse_args():
     parser = argparse.ArgumentParser(

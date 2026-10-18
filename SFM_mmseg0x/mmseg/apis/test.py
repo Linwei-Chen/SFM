@@ -64,7 +64,6 @@ def single_gpu_test(model,
     Returns:
         list: list of evaluation pre-results or list of save file names.
     """
-    print('pre_eval', pre_eval)
     if efficient_test:
         warnings.warn(
             'DeprecationWarning: ``efficient_test`` will be deprecated, the '

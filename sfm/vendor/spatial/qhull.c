@@ -4,12 +4,12 @@
 {
     "distutils": {
         "depends": [
-            "/data4/chenlinwei/anaconda3/envs/mmseg/lib/python3.9/site-packages/numpy/core/include/numpy/arrayobject.h",
-            "/data4/chenlinwei/anaconda3/envs/mmseg/lib/python3.9/site-packages/numpy/core/include/numpy/arrayscalars.h",
-            "/data4/chenlinwei/anaconda3/envs/mmseg/lib/python3.9/site-packages/numpy/core/include/numpy/ndarrayobject.h",
-            "/data4/chenlinwei/anaconda3/envs/mmseg/lib/python3.9/site-packages/numpy/core/include/numpy/ndarraytypes.h",
-            "/data4/chenlinwei/anaconda3/envs/mmseg/lib/python3.9/site-packages/numpy/core/include/numpy/npy_math.h",
-            "/data4/chenlinwei/anaconda3/envs/mmseg/lib/python3.9/site-packages/numpy/core/include/numpy/ufuncobject.h",
+            "numpy/core/include/numpy/arrayobject.h",
+            "numpy/core/include/numpy/arrayscalars.h",
+            "numpy/core/include/numpy/ndarrayobject.h",
+            "numpy/core/include/numpy/ndarraytypes.h",
+            "numpy/core/include/numpy/npy_math.h",
+            "numpy/core/include/numpy/ufuncobject.h",
             "sfm/vendor/spatial/qhull_misc.h",
             "sfm/vendor/spatial/qhull_src/src/geom_r.h",
             "sfm/vendor/spatial/qhull_src/src/io_r.h",
@@ -22,7 +22,7 @@
         "include_dirs": [
             "sfm/vendor/spatial",
             "sfm/vendor/spatial/qhull_src/src",
-            "/data4/chenlinwei/anaconda3/envs/mmseg/lib/python3.9/site-packages/numpy/core/include"
+            "numpy/core/include"
         ],
         "name": "sfm.vendor.spatial.qhull",
         "sources": [

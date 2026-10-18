@@ -23,7 +23,7 @@ neck 注册表，配置里写 ``type='SFMFPN'`` 即可。
     # 然后把 neck 的 type 换掉：
     neck=dict(type='SFMFPN', in_channels=[...], out_channels=256, num_outs=5)
 
-已验证（2026-10-15，服务器 3090-8）：继承 pip 安装的官方
+已验证（2026-10-15，8×GPU 服务器）：继承 pip 安装的官方
 ``mmdet.models.necks.FPN``（2.28.2）在 GPU 上 forward/backward 通过。
 
 参考论文:

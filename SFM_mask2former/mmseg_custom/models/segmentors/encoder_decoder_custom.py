@@ -280,12 +280,8 @@ class EncoderDecoderWithSaliencySamplerPixelRelation(EncoderDecoder):
         return final_seg
 
     def get_final_feat(self, img):
-        # CKPT = torch.utils.checkpoint.checkpoint
         x, grids, smaps = self.extract_feat(img)
-        print(x)
-        # x, grids, smaps = CKPT(self.extract_feat, img)
         x = list(x)
-        # print(x[-1].shape)
         _outs = self.decode_head._forward_feature(x)
         if isinstance(_outs, tuple):
             final_feat, cls_list = _outs # PCAA

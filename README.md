@@ -74,8 +74,8 @@ Modules (LPRM, dilations doubling 1→64).
 | --- | --- | --- | --- |
 | Mask2Former Swin-T | 49.1 | **49.34** | [code](./SFM_mask2former/) · [config](./SFM_mask2former/configs/mask2former/mask2former_swin-t_8xb2-160k_ade20k-512x512_SFMv2.py) · [ckpt](https://huggingface.co/Linwei-Chen/SFM/blob/main/line2/mask2former_swin-t_8xb2-160k_ade20k-512x512_SFMv2/best_mIoU_iter_150000.pth) |
 
-> All released checkpoints are training-log verified to match or exceed the paper-reported numbers; runs whose best score falls below the paper value are not released.
-> Paper-reported baselines for reference: CCNet-R50 73.3 and PCAA-R50 73.3/76.9 (Cityscapes), FCN 43.8 / PSPNet 48.0 / CCNet 47.7 / OCNet 47.9 (PascalContext-59), Mask2Former Swin-T 47.4 (ADE20K).
+> All released checkpoints are training-log verified: each measured mIoU either exceeds the paper-reported number or matches it after one-decimal rounding (e.g. PSPNet-R50 D16 measures 78.05, rounding to the paper's 78.1). Runs falling below the paper value beyond one-decimal rounding are not released.
+> Paper-reported baselines for reference: CCNet-R50 D32 73.3 and PCAA-R50 col.1/col.2 73.3/76.9 (Cityscapes), FCN 43.8 / PSPNet 48.0 / CCNet 47.7 / OCNet 47.9 (PascalContext-59), Mask2Former Swin-T 47.4 (ADE20K).
 > CCNet-R50 D16: the released qhull-MSAU port reproduces the original code's per-class IoU exactly in a full 500-image re-evaluation.
 
 Loading & evaluation code for the Line 1 checkpoints (an mmsegmentation 0.25.0 fork with the SS3PR modules, plus the 18 config snapshots): [`SFM_mmseg0x/`](./SFM_mmseg0x/).
@@ -159,7 +159,7 @@ reversed_feat = Interp2D(size=(h, w), align_corners=True)(sampled_feat, inv_samp
 `Interp2D`/`reverse_feat` are **bit-exact against the original training code** (verified
 module-level on random grids and on real ARS-produced grids, and end-to-end on Cityscapes:
 the ported implementation with the released CCNet checkpoint reproduces the original code's
-per-class IoU exactly — details in `docs/`). The qhull provider is resolved in order:
+per-class IoU exactly — see the verification record in [`SFM_mmseg0x/README.md`](./SFM_mmseg0x/README.md)). The qhull provider is resolved in order:
 1. `sfm.vendor.spatial.qhull` — scipy's qhull Cython source compiled by `pip install .`
    (needs a C compiler + LAPACK; LAPACK is auto-detected, falling back to BLAS bundled in
    numpy/scipy wheels). This is the bit-exact-as-scipy path with `find_simplex(..., return_c=True)`.
@@ -181,8 +181,6 @@ Single-file alternative (frozen copy, for copy-paste into other codebases): [`SF
 
 If you find our work useful in your research, please consider citing our paper:
 
-Generated bibtex
-
 ```
 @article{chen2023spatialfrequency,
   title={Spatial Frequency Modulation for Semantic Segmentation},
@@ -199,7 +197,11 @@ Generated bibtex
 
 ## Acknowledgements
 
-This project is built upon the excellent [MMSegmentation](https://www.google.com/url?sa=E&q=https%3A%2F%2Fgithub.com%2Fopen-mmlab%2Fmmsegmentation) toolbox. We thank the authors for their open-source contribution.
+This project is built upon the excellent [MMSegmentation](https://github.com/open-mmlab/mmsegmentation) toolbox. We thank the authors for their open-source contribution.
+
+## License
+
+This project is released under the [Apache License 2.0](./LICENSE).
 
 ## Contact
 

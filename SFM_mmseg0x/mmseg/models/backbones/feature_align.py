@@ -48,7 +48,7 @@ def torch_patchwise_dct(img, log=False):
     return X
 
 class DCTSaver:
-    def __init__(self, save_path='/home/ubuntu/code/ResolutionDet/mmseg_exp/utils/zigzag_img2_8x_dct.npy'):
+    def __init__(self, save_path='dct_analysis/zigzag_img2_8x_dct.npy'):
         self.dct_list = []
         self.save_path = save_path
         if not os.path.exists(save_path):
@@ -3131,10 +3131,10 @@ class dcnv2_AS(OriDCNv2):
             raise NotImplementedError
         # x = self.CA(x) * x
         # x = self.SA(x) * x
-        # /data3/chenlinwei/code/ResolutionDet/detectron2/DCNv2-pytorch_1.9/src/cpu/dcn_v2_im2col_cpu.cpp
+        # DCNv2-pytorch_1.9/src/cpu/dcn_v2_im2col_cpu.cpp（参考实现）
         # const float *data_offset_ptr = data_offset + (b_col * deformable_group + deformable_group_index) * 2 * kernel_h * kernel_w * height_col * width_col;
         """
-        # /data3/chenlinwei/code/ResolutionDet/detectron2/DCNv2-pytorch_1.9/src/cpu/dcn_v2_im2col_cpu.cpp
+        # DCNv2-pytorch_1.9/src/cpu/dcn_v2_im2col_cpu.cpp（参考实现）
         # const float *data_offset_ptr = data_offset + (b_col * deformable_group + deformable_group_index) * 2 * kernel_h * kernel_w * height_col * width_col;
         # // offset的具体位置
         # const int data_offset_h_ptr = ((2 * (i * kernel_w + j)) * height_col + h_col) * width_col + w_col;

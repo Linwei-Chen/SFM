@@ -9,10 +9,7 @@ from mmengine.logging import print_log
 from mmengine.runner import Runner
 
 from mmseg.registry import RUNNERS
-import sys
-sys.path.append('/data3/chenlinwei/code/ResolutionDet/mmsegmentation1.0')
-sys.path.append('/data3/chenlinwei/code/ResolutionDet/mmsegmentation1.0/mmseg_custom')
-from mmseg_custom import *
+from mmseg_custom import *  # local package in this directory (SFM_mask2former)
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a segmentor')

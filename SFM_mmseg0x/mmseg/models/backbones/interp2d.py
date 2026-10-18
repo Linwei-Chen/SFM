@@ -230,8 +230,6 @@ class LearnableGaussian(nn.Module):
         # print(self.gaussian_templete.requires_grad)
         # print(self.sigma.requires_grad)
         # print(self.gaussian_templete)
-        print(x.shape[2:], self.sigma)
-        # print(self.gaussian_templete)
         # print(torch.exp(self.gaussian_templete / self.sigma ** 2).requires_grad)
         # print(torch.exp(self.gaussian_templete / self.sigma ** 2).shape)
         # print(torch.exp(self.gaussian_templete / self.sigma ** 2))
@@ -442,7 +440,6 @@ def GetAliasingMap(tensor, win_size=5, power=2, channel_reduction=4, g_sigma=2, 
             # M[win_size//2 - win_size//lp_size:win_size//2 + win_size//lp_size, win_size//2 - win_size//lp_size:win_size//2 + win_size//lp_size] = 1.0
             M[round(win_size/2 - win_size/lp_size):round(win_size/2 + win_size/lp_size), round(win_size/2 - win_size/lp_size):round(win_size/2 + win_size/lp_size)] = 1.0
         else: raise NotImplementedError
-        print(M)
         low_freq_energy = (freq_domain_energy[..., :, :] * M).sum((-3, -2, -1))
         total_energy = freq_domain_energy.sum((-3, -2, -1)) # b, h * w * c
         hi_freq_energy = (total_energy - low_freq_energy)
@@ -1595,7 +1592,7 @@ def torch_patchwise_dct(img, log=False):
     return X
 
 class DCTSaver:
-    def __init__(self, save_path='/home/ubuntu/code/ResolutionDet/mmseg_exp/utils/zigzag_img2_8x_dct.npy'):
+    def __init__(self, save_path='dct_analysis/zigzag_img2_8x_dct.npy'):
         self.dct_list = []
         self.save_path = save_path
 
@@ -1612,13 +1609,13 @@ class DCTSaver:
 DCT_ANALYSIS = False
 # DCT_ANALYSIS = True
 if DCT_ANALYSIS:
-    uniform_2x_dct = DCTSaver(save_path='/home/ubuntu/code/ResolutionDet/mmseg_exp/utils/uniform_2x_dct.npy')
-    uniform_4x_dct = DCTSaver(save_path='/home/ubuntu/code/ResolutionDet/mmseg_exp/utils/uniform_4x_dct.npy')
-    uniform_8x_dct = DCTSaver(save_path='/home/ubuntu/code/ResolutionDet/mmseg_exp/utils/uniform_8x_dct.npy')
-    adaptive_2x_dct = DCTSaver(save_path='/home/ubuntu/code/ResolutionDet/mmseg_exp/utils/adaptive_2x_dct.npy')
-    adaptive_4x_dct = DCTSaver(save_path='/home/ubuntu/code/ResolutionDet/mmseg_exp/utils/adaptive_4x_dct.npy')
-    adaptive_8x_dct = DCTSaver(save_path='/home/ubuntu/code/ResolutionDet/mmseg_exp/utils/adaptive_8x_dct.npy')
-    original_dct = DCTSaver(save_path='/home/ubuntu/code/ResolutionDet/mmseg_exp/utils/original_dct.npy')
+    uniform_2x_dct = DCTSaver(save_path='dct_analysis/uniform_2x_dct.npy')
+    uniform_4x_dct = DCTSaver(save_path='dct_analysis/uniform_4x_dct.npy')
+    uniform_8x_dct = DCTSaver(save_path='dct_analysis/uniform_8x_dct.npy')
+    adaptive_2x_dct = DCTSaver(save_path='dct_analysis/adaptive_2x_dct.npy')
+    adaptive_4x_dct = DCTSaver(save_path='dct_analysis/adaptive_4x_dct.npy')
+    adaptive_8x_dct = DCTSaver(save_path='dct_analysis/adaptive_8x_dct.npy')
+    original_dct = DCTSaver(save_path='dct_analysis/original_dct.npy')
 
 def test_torch_patchwise_dct():
     s = DCTSaver()
@@ -1669,7 +1666,7 @@ def test_SaliencySampler():
     x = torch.rand(1, 1, 8, 8)
     # feature, feature_sampled, saliency = ss._test(x)
     # feature, feature_sampled, saliency = ss(x)
-    img = cv2.imread("/home/ubuntu/2TB/dataset/VOCdevkit/VOC2012/JPEGImages/2012_004331.jpg")
+    img = cv2.imread("test_imgs/2012_004331.jpg")
     img = torch.Tensor(img).permute(2, 0, 1).unsqueeze(0)
     print(img.shape)
     saliency = torch.rand(1, 1, 64, 64)
@@ -1688,10 +1685,10 @@ def test_SaliencySampler():
     print("saliency", saliency)
     saliency *= 255
     print((reversed_img - img).abs().mean())
-    cv2.imwrite('/home/ubuntu/code/ResolutionDet/mmsegmentation/mmseg/models/backbones/interp2d_test.jpg', img.squeeze().permute(1, 2, 0).numpy())
-    cv2.imwrite('/home/ubuntu/code/ResolutionDet/mmsegmentation/mmseg/models/backbones/interp2d_saliency_test.jpg', saliency[0].permute(1, 2, 0).detach().numpy())
-    cv2.imwrite('/home/ubuntu/code/ResolutionDet/mmsegmentation/mmseg/models/backbones/interp2d_sampled_test.jpg', img_sampled.squeeze().permute(1, 2, 0).detach().numpy())
-    cv2.imwrite('/home/ubuntu/code/ResolutionDet/mmsegmentation/mmseg/models/backbones/interp2d_reversed_test.jpg', reversed_img.squeeze().permute(1, 2, 0).detach().numpy())
+    cv2.imwrite('test_imgs/interp2d_test.jpg', img.squeeze().permute(1, 2, 0).numpy())
+    cv2.imwrite('test_imgs/interp2d_saliency_test.jpg', saliency[0].permute(1, 2, 0).detach().numpy())
+    cv2.imwrite('test_imgs/interp2d_sampled_test.jpg', img_sampled.squeeze().permute(1, 2, 0).detach().numpy())
+    cv2.imwrite('test_imgs/interp2d_reversed_test.jpg', reversed_img.squeeze().permute(1, 2, 0).detach().numpy())
 
 from mmcv.ops.carafe import carafe, Tensor, CARAFEPack
 class NonUniformInterpolation(nn.Module):
@@ -2211,7 +2208,7 @@ class DCNv2_ASv1(ModulatedDeformConv2d):
         # x = self.CA(x) * x
         # x = self.SA(x) * x
         """
-        # /data3/chenlinwei/code/ResolutionDet/detectron2/DCNv2-pytorch_1.9/src/cpu/dcn_v2_im2col_cpu.cpp
+        # DCNv2-pytorch_1.9/src/cpu/dcn_v2_im2col_cpu.cpp（参考实现）
         # const float *data_offset_ptr = data_offset + (b_col * deformable_group + deformable_group_index) * 2 * kernel_h * kernel_w * height_col * width_col;
         # // offset的具体位置
         # const int data_offset_h_ptr = ((2 * (i * kernel_w + j)) * height_col + h_col) * width_col + w_col;
@@ -2427,7 +2424,7 @@ class DCNv2_AS(ModulatedDeformConv2d):
         # x = self.CA(x) * x
         # x = self.SA(x) * x
         """
-        # /data3/chenlinwei/code/ResolutionDet/detectron2/DCNv2-pytorch_1.9/src/cpu/dcn_v2_im2col_cpu.cpp
+        # DCNv2-pytorch_1.9/src/cpu/dcn_v2_im2col_cpu.cpp（参考实现）
         # const float *data_offset_ptr = data_offset + (b_col * deformable_group + deformable_group_index) * 2 * kernel_h * kernel_w * height_col * width_col;
         # // offset的具体位置
         # const int data_offset_h_ptr = ((2 * (i * kernel_w + j)) * height_col + h_col) * width_col + w_col;
@@ -2663,7 +2660,7 @@ class DCNv2_AS_PreAS(DCNv2_AS):
         AS_offset[:, 0] *= (0.5 * h)
         AS_offset[:, 1] *= (0.5 * w)
         """
-        # /data3/chenlinwei/code/ResolutionDet/detectron2/DCNv2-pytorch_1.9/src/cpu/dcn_v2_im2col_cpu.cpp
+        # DCNv2-pytorch_1.9/src/cpu/dcn_v2_im2col_cpu.cpp（参考实现）
         # const float *data_offset_ptr = data_offset + (b_col * deformable_group + deformable_group_index) * 2 * kernel_h * kernel_w * height_col * width_col;
         # // offset的具体位置
         # const int data_offset_h_ptr = ((2 * (i * kernel_w + j)) * height_col + h_col) * width_col + w_col;

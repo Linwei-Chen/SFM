@@ -26,7 +26,7 @@ from mmseg.models.backbones.feature_align import DCNv2, CascadeImageGuideUpsampl
 from mmseg.models.backbones.interp2d import NonUniformInterpolation
 from mmseg.models.losses.focal_fft_loss import FocalAliasingLoss
 class FeatSaver:
-    def __init__(self, save_path='/home/ubuntu/code/ResolutionDet/mmseg_exp/utils/sfpn_dct.npy'):
+    def __init__(self, save_path='dct_analysis/sfpn_dct.npy'):
         self.dct_list = []
         self.save_path = save_path
 
@@ -670,8 +670,7 @@ class EncoderDecoderForVis(EncoderDecoder):
         """Encode images with backbone and decode into a semantic segmentation
         map of the same size as input."""
         x, feats_for_vis = self.extract_feat(img)
-        print(img_metas)
-        # {'harmful_hfs':harmful_hfs, 'useful_hfs':useful_hfs, 'lower_feats':lower_feats, 'higher_feats':higher_feats, 
+        # {'harmful_hfs':harmful_hfs, 'useful_hfs':useful_hfs, 'lower_feats':lower_feats, 'higher_feats':higher_feats,
                             #  'naive_fused_feats':naive_fused_feats, 'freqfusion_fused_feats':freqfusion_fused_feats}
         harmful_hfs = feats_for_vis['feats_for_vis']
         useful_hfs = feats_for_vis['useful_hfs']
@@ -707,9 +706,7 @@ class EncoderDecoderWithDyUP(EncoderDecoder):
             self.edge_loss_weight = 0
             self.use_img = False
             self.use_att = False
-            print('######## using carafe_seg, set edge_loss_weight to 0')
-            print('######## using carafe_seg, set use_img to False')
-            print('######## using carafe_seg, set use_att to False')
+            print('carafe_seg upsampler: edge_loss_weight=0, use_img=False, use_att=False')
         if upsampler_mode == 'carafe':
             self.upsampler = CARAFEPack(channels=self.decode_head.channels, scale_factor=2 ** up2_times, up_kernel=3, compressed_channels=compress_channel)
             assert self.edge_loss_weight == 0
@@ -751,8 +748,6 @@ class EncoderDecoderWithDyUP(EncoderDecoder):
             self.dropout = nn.Dropout2d(dropout_ratio)
         else:
             self.dropout = None
-        # self.dct_saver = DCTSaver(save_path='/data3/chenlinwei/code/ResolutionDet/mmseg_exp/utils/Feature_DCT/baseline')
-        # self.dct_saver = DCTSaver(save_path='/data3/chenlinwei/code/ResolutionDet/mmseg_exp/utils/Feature_DCT/FreqFusion')
 
     def get_final_feats(self, img):
         x = self.extract_feat(img)

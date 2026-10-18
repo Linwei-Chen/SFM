@@ -6,7 +6,7 @@
 2. 在装有 mmcv 的环境中可与 ``mmcv.ops.carafe`` 对照（已在 mmcv 1.5.3 + CUDA
    上验证 max_diff ≈ 2.4e-07）；
 3. ``SaliencySampler``（最小 ARS）与原始仓库实现 state_dict 逐键可互载、输出
-   数值一致（服务器验证脚本见 tests/run_server_verify.py）。
+   数值一致（在训练环境服务器上验证通过）。
 """
 
 import sys

@@ -12,7 +12,6 @@ custom_imports = dict(imports=['mmdet.models',
                                'mmseg_custom.models.segmentors.encoder_decoder_custom',
                                ], allow_failed_imports=False)
 LOG_DIR = None
-# LOG_DIR = '/home/ubuntu/code/ResolutionDet/mmseg_exp/log'
 SAMPLER_NUM = 3
 ALIGN_CORNERS = False
 depths = [2, 2, 6, 2]

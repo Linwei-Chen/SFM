@@ -1,6 +1,3 @@
-import sys
-sys.path.append('/data4/chenlinwei/code/ResolutionDet')
-sys.path.append('/data4/chenlinwei/code/ResolutionDet/mmsegmentation1.0')
 _base_ = ['../_base_/default_runtime.py', '../_base_/datasets/ade20k.py']
 
 custom_imports = dict(imports=['mmdet.models', 
@@ -24,7 +21,6 @@ data_preprocessor = dict(
 num_classes = 150
 
 LOG_DIR = None
-# LOG_DIR = '/home/ubuntu/code/ResolutionDet/mmseg_exp/log'
 SAMPLER_NUM = 3
 ALIGN_CORNERS = False
 model = dict(

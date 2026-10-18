@@ -1,12 +1,4 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-from operator import index
-import sys
-from turtle import forward
-
-sys.path.append('./')
-sys.path.append('../')
-sys.path.append('../../')
-sys.path.append('../../../')
 import warnings
 
 import torch
@@ -1620,88 +1612,6 @@ class NyBottleneck(AttBottleneck):
                          train_last_stage=train_last_stage, 
                          **kwargs)
         
-from functools import partial
-
-@BACKBONES.register_module()
-class NyResNet(ResNetV1cWithBlur):
-    r"""
-    Use a series avgpool to replace maxpool for downsample
-    """
-    arch_settings = {
-        18: (BasicBlock, (2, 2, 2, 2)),
-        34: (BasicBlock, (3, 4, 6, 3)),
-        50: (NyBottleneck, (3, 4, 6, 3)),
-        101: (NyBottleneck, (3, 4, 23, 3)),
-        152: (NyBottleneck, (3, 8, 36, 3))
-    }
-    def __init__(self, att_pos='after_conv2', att_cfg=None, *args, **kwargs):
-        # if att_cfg is not None:
-            # self.arch_settings[self.depth][0] = partial(self.arch_settings[self.depth][0], att_cfg=att_cfg, att_pos=att_pos)
-        super().__init__(*args, **kwargs)
-
-@BACKBONES.register_module()
-class NyResNetFreezePretrain(NyResNet):
-    def __init__(self, not_freeze_list=['att'], *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.not_freeze_list = not_freeze_list
-        self._custom_freeze_stages()
-
-    def _custom_freeze_stages(self):
-        """Freeze stages param and norm stats."""
-        if self.frozen_stages >= 0:
-            if self.deep_stem:
-                self.stem.eval()
-                for param in self.stem.parameters():
-                    param.requires_grad = False
-            else:
-                self.norm1.eval()
-                for m in [self.conv1, self.norm1]:
-                    for param in m.parameters():
-                        param.requires_grad = False
-
-        for i in range(1, self.frozen_stages + 1):
-            m = getattr(self, f'layer{i}')
-            # for param in m.parameters():
-                # param.requires_grad = False
-            for name, param in m.named_parameters():
-                if any([i in name for i in self.not_freeze_list]):
-                    m.train()
-                    param.requires_grad = True
-                    pass
-                else:
-                    m.eval()
-                    param.requires_grad = False
-                print(name, param.requires_grad)
-
-@BACKBONES.register_module()
-class ResNetFreqMix(ResNetV1cWithBlur):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.fm1 = FrequencySelection(64*self.block.expansion, k_list=[1.4], fs_feat='feat', lp_type='freq_channel_se', act='sigmoid', channel_res=False,)
-        self.fm2 = FrequencySelection(128*self.block.expansion, k_list=[1.4], fs_feat='feat', lp_type='freq_channel_se', act='sigmoid', channel_res=False,)
-        self.fm3 = FrequencySelection(256*self.block.expansion, k_list=[1.4], fs_feat='feat', lp_type='freq_channel_se', act='sigmoid', channel_res=False,)
-        # self.fm4 = FrequencySelection(512*self.block.expansion, k_list=[1.4], fs_feat='feat', lp_type='freq_channel_se', act='sigmoid', channel_res=False,)
-        self.fm4 = nn.Identity()
-
-    def forward(self, x):
-        """Forward function."""
-        if self.deep_stem:
-            x = self.stem(x)
-        else:
-            x = self.conv1(x)
-            x = self.norm1(x)
-            x = self.relu(x)
-        outs = []
-        for i, layer_name in enumerate(self.res_layers):
-            res_layer = getattr(self, layer_name)
-            x = self.AdaD[i](x)
-            x = res_layer(x)
-            fm = getattr(self, f'fm{i+1}')
-            x = fm(x)
-            if i in self.out_indices:
-                outs.append(x)
-        return tuple(outs)
-    
 @BACKBONES.register_module()
 class ResNetV1cSaliencySampler(ResNetV1c):
     r"""

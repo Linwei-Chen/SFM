@@ -20,10 +20,10 @@ def un_gz(src, dst):
     g_file.close()
 
 """
-python /data4/chenlinwei/code/ResolutionDet/mmsegmentation1.0/tools/dataset_converters/stare.py \
-     /data4/chenlinwei/dataset/stare-images.tar \
-     /data4/chenlinwei/dataset/labels-ah.tar \
-     /data4/chenlinwei/dataset/labels-vk.tar
+python tools/dataset_converters/stare.py \
+     stare-images.tar \
+     labels-ah.tar \
+     labels-vk.tar
 """
 
 def parse_args():
